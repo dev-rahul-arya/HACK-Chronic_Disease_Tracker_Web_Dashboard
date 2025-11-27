@@ -1,4 +1,4 @@
-# HACK-Chronic_Disease_Tracker_Web_Dashboard
+# Chronic_Disease_Tracker_Web_Dashboard
 
 Many chronic disease patients (diabetes, hypertension, etc.) struggle to consistently track their vitals and medicines, leading to missed doses, poor visibility of trends, and rushed consultations where doctors lack organized data. There is a need for a simple web-based dashboard that lets patients log daily health parameters and medication intake, and allows doctors to quickly view summarized trends instead of scattered notes or screenshots.  
 
