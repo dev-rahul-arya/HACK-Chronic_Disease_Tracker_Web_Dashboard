@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication | HealthTrack</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Welcome to HealthTrack</h2>
+            <p id="auth-subtitle">Login to manage your health</p>
+        </div>
+
+        <div id="auth-alert" class="auth-alert hidden"></div>
+
+        <form id="auth-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-primary full-width">Login</button>
+        </form>
+
+        <div class="auth-footer">
+            <p id="toggle-text">Don't have an account?</p>
+            <button id="toggle-auth" class="btn-link">Sign Up</button>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html">← Back to Home</a>
+        </div>
+    </div>
+
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>
