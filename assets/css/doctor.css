@@ -1,0 +1,190 @@
+body {
+    background-color: #f0f2f5;
+    color: #212529;
+}
+
+/* --- Access Screen --- */
+.access-screen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0b5ed7 0%, #0dcaf0 100%);
+    padding: 20px;
+}
+
+.access-box {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.access-box .brand { font-size: 1.5rem; color: var(--primary-color); font-weight: 800; margin-bottom: 20px; }
+.access-box h2 { margin-bottom: 10px; font-size: 1.3rem; }
+.access-box p { color: #6c757d; margin-bottom: 25px; }
+.access-box input { width: 100%; padding: 12px; border: 1px solid #dee2e6; border-radius: 6px; font-size: 1.1rem; text-align: center; letter-spacing: 1px; margin-bottom: 15px; }
+.error-msg { color: #dc3545; margin-top: 15px; font-size: 0.9rem; }
+
+/* --- Report Layout --- */
+.doc-header {
+    background: white;
+    padding: 15px 30px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.badge { background: #e9ecef; padding: 5px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.report-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+/* Grid System */
+.report-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr; /* Chart bigger than table */
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.report-card {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    /* Ensure charts don't overflow */
+    min-width: 0; 
+}
+
+.chart-card { min-height: 350px; }
+
+/* Table Styles */
+.table-wrapper {
+    max-height: 350px;
+    overflow-y: auto; /* Scrollable on screen */
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th { text-align: left; padding: 10px; background: #f8f9fa; position: sticky; top: 0; }
+td { padding: 8px 10px; border-bottom: 1px solid #f1f3f5; }
+
+/* --- Heatmap Styles (New) --- */
+.heatmap-wrapper {
+    overflow-x: auto;
+}
+
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: 150px repeat(30, 1fr); /* Label + 30 Days */
+    gap: 4px;
+    align-items: center;
+}
+
+.heatmap-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+}
+
+.heatmap-day-header {
+    font-size: 0.7rem;
+    color: #868e96;
+    text-align: center;
+}
+
+.heatmap-cell {
+    width: 100%;
+    aspect-ratio: 1; /* Squares */
+    background-color: #f1f3f5; /* Default: Gray/Empty */
+    border-radius: 2px;
+}
+
+.heatmap-cell.taken {
+    background-color: #40c057; /* Green */
+}
+
+.heatmap-cell.missed {
+    background-color: #ffe3e3; /* Light Red (Optional logic) */
+}
+
+/* Med Cards */
+.meds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.doc-med-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid var(--primary-color);
+    border: 1px solid #e9ecef;
+    border-left-width: 4px;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .report-grid { grid-template-columns: 1fr; } /* Stack vertically */
+    .doc-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .header-actions { width: 100%; display: flex; justify-content: space-between; }
+    .container { padding: 20px; margin: 0; }
+    .heatmap-grid { grid-template-columns: 100px repeat(30, 20px); } /* Scrunched but scrollable */
+}
+
+/* --- PDF Export Mode --- */
+/* This class is added by JS before printing */
+.pdf-mode .report-grid {
+    display: block !important; /* Force block stacking */
+}
+
+.pdf-mode .report-card {
+    margin-bottom: 20px;
+    border: none;
+    box-shadow: none;
+}
+
+.pdf-mode .table-wrapper {
+    max-height: none !important; /* Expand full table */
+    overflow: visible !important;
+}
+
+.pdf-mode .chart-card {
+    height: 400px; /* Fixed height for PDF clarity */
+}
+
+.pdf-mode .heatmap-wrapper {
+    overflow: visible; /* Ensure full heatmap prints */
+}
+
+.pdf-mode .break-before {
+    page-break-before: always;
+}
+
+.pdf-footer { display: none; }
+.pdf-mode .pdf-footer { display: block; text-align: center; font-size: 0.8rem; color: #aaa; margin-top: 30px; }

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor View | HealthTrack</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/doctor.css">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- 1. Code Entry Screen -->
+    <div id="access-screen" class="access-screen">
+        <div class="access-box">
+            <div class="brand">
+                <i class="fa-solid fa-heart-pulse"></i> HealthTrack
+            </div>
+            <h2>Doctor Access Portal</h2>
+            <p>Enter the secure patient access code to view health records.</p>
+            
+            <form id="access-form">
+                <div class="input-wrapper">
+                    <input type="text" id="access-code" placeholder="e.g. AbC-123" required autocomplete="off">
+                </div>
+                <button type="submit" class="btn-primary full-width">View Patient Data</button>
+            </form>
+            <p id="access-error" class="error-msg hidden"></p>
+        </div>
+    </div>
+
+    <!-- 2. Patient Report Dashboard -->
+    <div id="report-screen" class="report-layout hidden">
+        
+        <!-- Header (No Print) -->
+        <header class="doc-header no-print">
+            <div class="header-left">
+                <div class="logo-small">
+                    <i class="fa-solid fa-heart-pulse"></i> HealthTrack
+                </div>
+                <span class="badge">Read Only Mode</span>
+            </div>
+            <div class="header-actions">
+                <button id="export-btn" class="btn-primary btn-outline">
+                    <i class="fa-solid fa-file-pdf"></i> Export PDF
+                </button>
+                <button id="exit-btn" class="btn-secondary">
+                    <i class="fa-solid fa-right-from-bracket"></i> Exit
+                </button>
+            </div>
+        </header>
+
+        <!-- Printable Content -->
+        <div class="container" id="printable-area">
+            
+            <div class="report-meta">
+                <div>
+                    <h1>Patient Health Report</h1>
+                    <p class="text-muted">Generated on <span id="report-date">...</span></p>
+                </div>
+                <div class="access-info">
+                    <small>Access Code:</small>
+                    <strong id="display-code">...</strong>
+                </div>
+            </div>
+
+            <!-- Vitals Grid -->
+            <div class="section-title">
+                <h3><i class="fa-solid fa-chart-line"></i> Vitals Overview</h3>
+            </div>
+
+            <div class="report-grid">
+                <!-- Chart -->
+                <div class="report-card chart-card">
+                    <canvas id="docChart"></canvas>
+                </div>
+
+                <!-- Table -->
+                <div class="report-card table-card">
+                    <h4>Recent Vitals Log</h4>
+                    <div class="table-wrapper">
+                        <table id="vitals-table">
+                            <thead>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>BP</th>
+                                    <th>HR</th>
+                                    <th>Glucose</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div id="no-vitals-msg" class="hidden text-center p-3 text-muted">No data available.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heatmap Section (New) -->
+            <div class="section-title mt-4 break-before">
+                <h3><i class="fa-solid fa-calendar-check"></i> Medication Adherence (Last 30 Days)</h3>
+            </div>
+            <div class="report-card">
+                <div id="heatmap-container" class="heatmap-wrapper">
+                    <!-- Heatmap injected via JS -->
+                    <p class="text-muted text-center">Loading adherence data...</p>
+                </div>
+            </div>
+
+            <!-- Active Meds Details -->
+            <div class="section-title mt-4">
+                <h3><i class="fa-solid fa-prescription-bottle-medical"></i> Prescription Details</h3>
+            </div>
+            <div id="meds-container" class="meds-grid"></div>
+            <div id="no-meds-msg" class="hidden text-muted">No active medications found.</div>
+
+            <div class="pdf-footer mt-4">
+                <hr>
+                <p>Confidential Medical Record • HealthTrack</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/doctor-view.js"></script>
+</body>
+</html>
