@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Access | HealthTrack</title>
+    
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo-text">
+                    <i class="fa-solid fa-heart-pulse"></i> HealthTrack
+                </a>
+                <button id="close-sidebar" class="mobile-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i> <span>Overview</span>
+                </a>
+                <a href="log-vitals.html" class="nav-item">
+                    <i class="fa-solid fa-file-medical"></i> <span>Log Vitals</span>
+                </a>
+                <a href="medications.html" class="nav-item">
+                    <i class="fa-solid fa-pills"></i> <span>Medications</span>
+                </a>
+                <a href="doctor-access.html" class="nav-item active">
+                    <i class="fa-solid fa-user-doctor"></i> <span>Doctor Access</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fa-solid fa-gear"></i> <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="nav-item logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Top Header -->
+            <header class="top-bar">
+                <div class="top-left">
+                    <button id="open-sidebar" class="mobile-only"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="page-title">Doctor Access</h2>
+                </div>
+
+                <div class="user-dropdown-container">
+                    <button class="profile-pill" id="dashboard-profile-toggle">
+                        <img src="https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff" alt="User" id="user-avatar">
+                        <span id="user-name-display" class="desktop-only">My Account</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="profile-dropdown" id="dashboard-dropdown-menu">
+                        <div class="dropdown-header">
+                            <p class="role-badge">Patient</p>
+                            <span class="user-email" id="user-email">Loading...</span>
+                        </div>
+                        <hr>
+                        <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                        <a href="#" class="logout-link" id="header-logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Access Content -->
+            <div class="content-container">
+                
+                <div class="access-container">
+                    <!-- Intro Banner -->
+                    <div class="info-banner">
+                        <div class="info-icon">
+                            <i class="fa-solid fa-shield-heart"></i>
+                        </div>
+                        <div class="info-text">
+                            <h3>Share Your Health Data Securely</h3>
+                            <p>Generate a unique link to share your vital history and medication logs with your doctor. You can revoke access at any time.</p>
+                        </div>
+                    </div>
+
+                    <!-- Generate Card -->
+                    <div class="card access-card">
+                        <div class="card-header">
+                            <h3>Generate New Link</h3>
+                        </div>
+                        <form id="generate-access-form" class="generate-row">
+                            <div class="input-group">
+                                <label for="doctor-label">Doctor's Name / Label (Optional)</label>
+                                <input type="text" id="doctor-label" placeholder="e.g. Dr. Smith or General Checkup" class="form-input">
+                            </div>
+                            <button type="submit" class="btn-primary btn-solid">
+                                <i class="fa-solid fa-link"></i> Create Access Link
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Active Links List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Active Shared Links</h3>
+                        </div>
+                        
+                        <div id="loading-codes" style="padding: 20px; text-align: center; color: #6c757d;">
+                            <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+                        </div>
+
+                        <div id="active-codes-list" class="codes-list">
+                            <!-- Codes will be injected here -->
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="empty-codes" class="empty-state hidden">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No active shared links. Generate one above to get started.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/doctor-access.js"></script>
+</body>
+</html>

@@ -962,3 +962,192 @@ input:checked + .slider:before {
 .hidden {
     display: none !important;
 }
+
+/* --- Doctor Access Page Styles --- */
+
+.access-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Info Banner */
+.info-banner {
+    background-color: #e7f5ff;
+    border: 1px solid #d0ebff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.info-icon {
+    font-size: 2rem;
+    color: var(--primary-blue);
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(11, 94, 215, 0.1);
+}
+
+.info-text h3 {
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+}
+
+.info-text p {
+    font-size: 0.95rem;
+    color: #495057;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Generate Form */
+.generate-row {
+    display: flex;
+    align-items: flex-end; /* Align button with input box bottom */
+    gap: 20px;
+}
+
+.generate-row .input-group {
+    flex: 1;
+}
+
+.generate-row label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #343a40;
+}
+
+.generate-row .btn-primary {
+    height: 42px; /* Match input height roughly */
+    white-space: nowrap;
+}
+
+/* Codes List */
+.codes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.access-item {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    transition: all 0.2s;
+}
+
+.access-item:hover {
+    border-color: var(--primary-blue);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.access-info h4 {
+    margin-bottom: 5px;
+    color: #343a40;
+    font-size: 1rem;
+}
+
+.access-meta {
+    font-size: 0.85rem;
+    color: #868e96;
+}
+
+/* The Link Box */
+.link-box {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px dashed #adb5bd;
+    padding: 8px 12px;
+    border-radius: 6px;
+    gap: 10px;
+}
+
+.code-text {
+    font-family: monospace;
+    font-size: 1rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.copy-btn:hover {
+    color: var(--primary-blue);
+}
+
+.revoke-btn {
+    background-color: #fff5f5;
+    color: #e03131;
+    border: 1px solid #ffc9c9;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 20px;
+}
+
+.revoke-btn:hover {
+    background-color: #ffe3e3;
+    border-color: #ffa8a8;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #adb5bd;
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .generate-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .access-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .link-box {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .revoke-btn {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
