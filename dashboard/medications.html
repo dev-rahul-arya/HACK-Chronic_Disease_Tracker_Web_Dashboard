@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medications | HealthTrack</title>
+    
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo-text">
+                    <i class="fa-solid fa-heart-pulse"></i> HealthTrack
+                </a>
+                <button id="close-sidebar" class="mobile-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i> <span>Overview</span>
+                </a>
+                <a href="log-vitals.html" class="nav-item">
+                    <i class="fa-solid fa-file-medical"></i> <span>Log Vitals</span>
+                </a>
+                <a href="medications.html" class="nav-item active">
+                    <i class="fa-solid fa-pills"></i> <span>Medications</span>
+                </a>
+                <a href="doctor-access.html" class="nav-item">
+                    <i class="fa-solid fa-user-doctor"></i> <span>Doctor Access</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fa-solid fa-gear"></i> <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="nav-item logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Top Header -->
+            <header class="top-bar">
+                <div class="top-left">
+                    <button id="open-sidebar" class="mobile-only"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="page-title">Medications</h2>
+                </div>
+
+                <div class="user-dropdown-container">
+                    <button class="profile-pill" id="dashboard-profile-toggle">
+                        <img src="https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff" alt="User" id="user-avatar">
+                        <span id="user-name-display" class="desktop-only">My Account</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="profile-dropdown" id="dashboard-dropdown-menu">
+                        <div class="dropdown-header">
+                            <p class="role-badge">Patient</p>
+                            <span class="user-email" id="user-email">Loading...</span>
+                        </div>
+                        <hr>
+                        <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                        <a href="#" class="logout-link" id="header-logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Medication Content -->
+            <div class="content-container">
+                
+                <!-- Action Bar -->
+                <div class="action-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <p style="color: #6c757d;">Manage your daily prescriptions.</p>
+                    <button id="open-med-modal" class="btn-primary btn-solid">
+                        <i class="fa-solid fa-plus"></i> Add New
+                    </button>
+                </div>
+
+                <!-- Medication List -->
+                <div class="card">
+                    <div id="med-loading" style="text-align: center; padding: 20px; color: #6c757d;">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Loading medications...
+                    </div>
+                    
+                    <ul id="medications-list" class="med-list">
+                        <!-- Items will be injected here by JS -->
+                    </ul>
+                    
+                    <!-- Empty State (Hidden by default) -->
+                    <div id="empty-state" class="hidden" style="text-align: center; padding: 40px; color: #adb5bd;">
+                        <i class="fa-solid fa-pills" style="font-size: 3rem; margin-bottom: 10px; display: block;"></i>
+                        <p>No medications found. Add one to get started.</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Adding Medication -->
+    <!-- Modal for Adding/Editing Medication -->
+    <!-- FIX: Removed 'hidden' class to prevent CSS conflict -->
+    <div id="med-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Added ID for dynamic title (Add vs Edit) -->
+                <h3 id="modal-title">Add Medication</h3>
+                <button id="close-modal" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="add-med-form">
+                <!-- HIDDEN INPUT to store ID when editing -->
+                <input type="hidden" id="med-id">
+
+                <div class="form-group">
+                    <label>Medicine Name</label>
+                    <input type="text" id="med-name" placeholder="e.g. Metformin" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Dosage</label>
+                    <input type="text" id="med-dosage" placeholder="e.g. 500mg" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Frequency / Time</label>
+                    <input type="text" id="med-frequency" placeholder="e.g. After breakfast" class="form-input" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancel-modal">Cancel</button>
+                    <button type="submit" id="med-submit-btn" class="btn-primary btn-solid">Add Medicine</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="../assets/js/medications.js"></script>
+</body>
+</html>

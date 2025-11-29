@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | HealthTrack</title>
-    
+
     <!-- Global Styles -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <!-- Dashboard Specific Styles -->
     <link rel="stylesheet" href="../assets/css/dashboard.css">
-    
+
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 
     <div class="dashboard-layout">
-        
+
         <!-- Sidebar Navigation -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -59,7 +61,7 @@
 
         <!-- Main Content Area -->
         <main class="main-content">
-            
+
             <!-- Top Header -->
             <header class="top-bar">
                 <div class="top-left">
@@ -70,7 +72,8 @@
                 <!-- Profile Dropdown -->
                 <div class="user-dropdown-container">
                     <button class="profile-pill" id="dashboard-profile-toggle">
-                        <img src="https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff" alt="User" id="user-avatar">
+                        <img src="https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff" alt="User"
+                            id="user-avatar">
                         <span id="user-name-display" class="desktop-only">My Account</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
@@ -85,21 +88,25 @@
                         <!-- Added My Profile Link -->
                         <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
                         <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
-                        <a href="#" class="logout-link" id="header-logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                        <a href="#" class="logout-link" id="header-logout-btn"><i
+                                class="fa-solid fa-right-from-bracket"></i> Log Out</a>
                     </div>
                 </div>
             </header>
 
             <!-- Dashboard Content -->
             <div class="content-container">
-                
+
                 <!-- Welcome Banner -->
                 <div class="welcome-banner">
                     <div class="welcome-text">
                         <h3>Welcome back! 👋</h3>
-                        <p>Here is your daily health summary. You have <strong>2 medications</strong> pending today.</p>
+                        <!-- UPDATED: Added ID 'pending-meds-count' -->
+                        <p>Here is your daily health summary. You have <strong
+                                id="pending-meds-count">loading...</strong> pending today.</p>
                     </div>
-                    <a href="log-vitals.html" class="btn-primary btn-solid"><i class="fa-solid fa-plus"></i> Log Vitals</a>
+                    <a href="log-vitals.html" class="btn-primary btn-solid"><i class="fa-solid fa-plus"></i> Log
+                        Vitals</a>
                 </div>
 
                 <!-- Stats Grid -->
@@ -112,7 +119,7 @@
                             <span class="stat-status success">Normal</span>
                         </div>
                     </div>
-                    
+
                     <div class="stat-card">
                         <div class="stat-icon bg-red"><i class="fa-solid fa-heart-pulse"></i></div>
                         <div class="stat-info">
@@ -159,40 +166,17 @@
 
                     <!-- Recent Logs / Quick Actions -->
                     <div class="recent-section card">
-                        <div class="card-header">
+                        <!-- UPDATED: Added inline flex styles to ensure alignment -->
+                        <div class="card-header"
+                            style="display: flex; justify-content: space-between; align-items: center;">
                             <h3>Upcoming Meds</h3>
                             <a href="medications.html" class="view-all">View All</a>
                         </div>
-                        <!-- Updated List Structure -->
-                        <ul class="med-list">
-                            <li class="med-item">
-                                <div class="med-icon">
-                                    <i class="fa-solid fa-pills"></i>
-                                </div>
-                                <div class="med-info">
-                                    <span class="med-name">Metformin</span>
-                                    <span class="med-dose">500mg • After Lunch</span>
-                                </div>
-                                <label class="custom-checkbox">
-                                    <input type="checkbox" class="med-check" title="Mark as taken">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </li>
-                            <li class="med-item">
-                                <div class="med-icon">
-                                    <i class="fa-solid fa-capsules"></i>
-                                </div>
-                                <div class="med-info">
-                                    <span class="med-name">Lisinopril</span>
-                                    <span class="med-dose">10mg • Night</span>
-                                </div>
-                                <label class="custom-checkbox">
-                                    <input type="checkbox" class="med-check" title="Mark as taken">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </li>
+
+                        <ul id="dashboard-upcoming-meds" class="med-list">
+                            <li style="padding: 15px; color: #6c757d; text-align: center;">Loading...</li>
                         </ul>
-                        
+
                         <div class="card-header mt-4">
                             <h3>Alerts</h3>
                         </div>
@@ -211,4 +195,5 @@
     <script src="../assets/js/supabase-client.js"></script>
     <script src="../assets/js/dashboard.js"></script>
 </body>
+
 </html>
