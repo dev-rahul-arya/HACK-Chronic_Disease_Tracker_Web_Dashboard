@@ -1,0 +1,379 @@
+/* --- Global Reset & Variables --- */
+:root {
+    --primary-color: #0d6efd;       /* Trustworthy Blue */
+    --primary-hover: #0b5ed7;
+    --secondary-color: #eef2f6;     /* Light Gray/Blue background */
+    --text-dark: #212529;
+    --text-light: #6c757d;
+    --white: #ffffff;
+    --accent-color: #20c997;        /* Medical Teal */
+    --font-family: 'Inter', sans-serif;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--white);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 0.6rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-text {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-right: 20px;
+    transition: var(--transition);
+}
+
+.btn-text:hover {
+    color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.6rem 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    justify-content: flex-end; /* Pushes content to the right */
+}
+
+.nav-middle {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-middle a {
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-middle a:hover {
+    color: var(--primary-color);
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    white-space: nowrap; /* Prevents text breaking */
+}
+
+/* Hamburger (Hidden on Desktop) */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* --- Hero Section --- */
+.hero {
+    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+    padding: 100px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto 40px;
+}
+
+.hero-btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.large {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+}
+
+/* Wrapper to center the inline-block text */
+.typing-wrapper {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+    line-height: 1.2;
+}
+
+/* The Typing Animation */
+.typing-text {
+    color: var(--primary-color);
+    position: relative;
+}
+
+/* The Cursor (Pseudo-element) */
+.typing-text::after {
+    content: "";
+    position: absolute;
+    right: -5px;
+    top: 50%; /* Center vertically relative to text */
+    transform: translateY(-50%);
+    width: 3px;
+    height: 80%; /* Adjust height to match font size */
+    background-color: var(--primary-color);
+    animation: blink 0.7s infinite;
+}
+
+/* Animation for the cursor blinking */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Utility to stop blinking while typing (optional, looks cleaner) */
+.typing-text.stop-blinking::after {
+    animation: none;
+    opacity: 1;
+}
+
+/* --- Features Section --- */
+.features {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid #eee;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.icon-box {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.feature-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--text-dark);
+    color: #aaa;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.social-links a {
+    color: #aaa;
+    margin: 0 10px;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.social-links a:hover {
+    color: var(--white);
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 70px; /* Below navbar */
+        left: -100%; /* Hidden off-screen by default */
+        width: 100%;
+        height: calc(100vh - 70px); /* Full height minus navbar */
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 40px;
+        gap: 40px;
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-middle {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        font-size: 1.2rem;
+        position: static;
+        transform: none;
+    }
+
+    .nav-auth {
+        gap: 20px;
+        width: 100%;
+        padding: 0 40px;
+    }
+
+    .nav-auth .btn-text {
+        margin-right: 0;
+    }
+
+    .nav-auth a {
+        width: 100%;
+        text-align: center;
+        display: block;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero-btns {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .large {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .typing-wrapper h1 {
+        font-size: 2rem;
+        min-height: 80px; /* Prevents layout jump when text is deleted */
+    }
+    
+    .typing-text {
+        white-space: normal;
+        border-right: none;
+        animation: none;
+    }
+}

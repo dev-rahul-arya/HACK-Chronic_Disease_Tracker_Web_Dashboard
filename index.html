@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronic Disease Tracker | Home</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-heart-pulse"></i> HealthTrack
+            </a>
+
+            <div class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <div class="nav-menu">
+                <ul class="nav-middle">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+
+                <div class="nav-auth">
+                    <a href="login.html" class="btn-text">Login</a>
+                    <a href="register.html" class="btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="typing-wrapper">
+                <h1>
+                    Take Control of Your <br>
+                    <span class="typing-text"></span>
+                </h1>
+            </div>
+            <p>
+                Effortlessly track your vitals, manage medications, and share real-time reports with your doctor.
+                Simple, secure, and designed for your peace of mind.
+            </p>
+            <div class="hero-btns">
+                <a href="register.html" class="btn-primary large">Get Started for Free</a>
+                <a href="#features" class="btn-secondary large">Learn More</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose HealthTrack?</h2>
+                <p>We bridge the gap between your daily routine and your doctor's insights.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-notes-medical"></i>
+                    </div>
+                    <h3>Track Vitals</h3>
+                    <p>Log daily blood pressure, sugar levels, and heart rate with a simple, mobile-friendly interface.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-pills"></i>
+                    </div>
+                    <h3>Medication Reminders</h3>
+                    <p>Never miss a dose again. Keep a digital log of your medicines and adhere to your schedule.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
+                    <h3>Doctor Connect</h3>
+                    <p>Generate a secure link for your doctor to view summarized graphs and trends instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 HealthTrack. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const typingText = document.querySelector(".typing-text");
+        const words = ["Health Journey", "Daily Vitals", "Medication Log", "Doctor Reports"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        const typeEffect = () => {
+            const currentWord = words[wordIndex];
+            const currentChars = currentWord.substring(0, charIndex);
+            typingText.textContent = currentChars;
+            typingText.classList.add("stop-blinking");
+
+            if (!isDeleting && charIndex < currentWord.length) {
+                // If typing
+                charIndex++;
+                setTimeout(typeEffect, 100); // Typing speed
+            } else if (isDeleting && charIndex > 0) {
+                // If deleting
+                charIndex--;
+                setTimeout(typeEffect, 50); // Deleting speed
+            } else {
+                // If word is complete
+                isDeleting = !isDeleting;
+                typingText.classList.remove("stop-blinking");
+                wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+                setTimeout(typeEffect, 1200); // Pause before start typing/deleting
+            }
+        };
+
+        typeEffect();
+
+        /* Hamburger Menu Logic */
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".nav-menu");
+
+        hamburger.addEventListener("click", () => {
+            // Toggle the 'active' class to slide menu in/out
+            navMenu.classList.toggle("active");
+
+            // Optional: Toggle icon between 'bars' and 'X'
+            const icon = hamburger.querySelector("i");
+            if (navMenu.classList.contains("active")) {
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+            } else {
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+        });
+
+        /* Close menu when a link is clicked */
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            navMenu.classList.remove("active");
+            hamburger.querySelector("i").classList.remove("fa-xmark");
+            hamburger.querySelector("i").classList.add("fa-bars");
+        }));
+    </script>
+</body>
+
+</html>
