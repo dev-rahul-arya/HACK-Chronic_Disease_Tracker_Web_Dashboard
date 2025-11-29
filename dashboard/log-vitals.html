@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Vitals | HealthTrack</title>
+    
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar Navigation (Same as Dashboard) -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo-text">
+                    <i class="fa-solid fa-heart-pulse"></i> HealthTrack
+                </a>
+                <button id="close-sidebar" class="mobile-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i> <span>Overview</span>
+                </a>
+                <a href="log-vitals.html" class="nav-item active">
+                    <i class="fa-solid fa-file-medical"></i> <span>Log Vitals</span>
+                </a>
+                <a href="medications.html" class="nav-item">
+                    <i class="fa-solid fa-pills"></i> <span>Medications</span>
+                </a>
+                <a href="doctor-access.html" class="nav-item">
+                    <i class="fa-solid fa-user-doctor"></i> <span>Doctor Access</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fa-solid fa-gear"></i> <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="nav-item logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Top Header -->
+            <header class="top-bar">
+                <div class="top-left">
+                    <button id="open-sidebar" class="mobile-only"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="page-title">Log Vitals</h2>
+                </div>
+
+                <div class="user-dropdown-container">
+                    <button class="profile-pill" id="dashboard-profile-toggle">
+                        <img src="https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff" alt="User" id="user-avatar">
+                        <span id="user-name-display" class="desktop-only">My Account</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <!-- Dropdown Menu -->
+                    <div class="profile-dropdown" id="dashboard-dropdown-menu">
+                        <div class="dropdown-header">
+                            <p class="role-badge">Patient</p>
+                            <span class="user-email" id="user-email">Loading...</span>
+                        </div>
+                        <hr>
+                        <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                        <a href="#" class="logout-link" id="header-logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Form Content -->
+            <div class="content-container">
+                
+                <div class="form-container">
+                    <div class="card">
+                        <div class="card-header flex-row-space-between">
+                            <h3><i class="fa-solid fa-notes-medical"></i> Daily Health Check-in</h3>
+                            <span class="date-display" id="current-date">Today</span>
+                        </div>
+                        
+                        <!-- Alert Box for Success/Error -->
+                        <div id="form-alert" class="alert-box hidden"></div>
+
+                        <form id="vitals-form">
+                            <!-- Blood Pressure Section -->
+                            <div class="form-section">
+                                <h4>Blood Pressure</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Systolic (Upper)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="systolic" placeholder="120" min="50" max="250">
+                                            <span class="suffix">mmHg</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Diastolic (Lower)</label>
+                                        <div class="input-wrapper">
+                                            <input type="number" id="diastolic" placeholder="80" min="30" max="150">
+                                            <span class="suffix">mmHg</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vitals Grid -->
+                            <div class="form-grid three-col">
+                                <!-- Heart Rate -->
+                                <div class="form-group">
+                                    <label>Heart Rate</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-heart-pulse input-icon"></i>
+                                        <input type="number" id="heart-rate" placeholder="72">
+                                        <span class="suffix">bpm</span>
+                                    </div>
+                                </div>
+
+                                <!-- Glucose -->
+                                <div class="form-group">
+                                    <label>Blood Glucose</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-cube input-icon"></i>
+                                        <input type="number" id="glucose" placeholder="95">
+                                        <span class="suffix">mg/dL</span>
+                                    </div>
+                                </div>
+
+                                <!-- Weight -->
+                                <div class="form-group">
+                                    <label>Weight</label>
+                                    <div class="input-wrapper">
+                                        <i class="fa-solid fa-weight-scale input-icon"></i>
+                                        <input type="number" id="weight" placeholder="70.5" step="0.1">
+                                        <span class="suffix">kg</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Context/Notes -->
+                            <div class="form-group">
+                                <label>Glucose Context</label>
+                                <select id="glucose-context" class="form-select full-width">
+                                    <option value="fasting">Fasting (Before Breakfast)</option>
+                                    <option value="post_meal">Post Meal (2 hours after)</option>
+                                    <option value="random">Random</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Notes</label>
+                                <textarea id="notes" rows="3" placeholder="Any symptoms? Missed medication? How are you feeling?" class="form-textarea"></textarea>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="window.location.href='index.html'">Cancel</button>
+                                <button type="submit" class="btn-primary btn-solid">Save Log</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/supabase-client.js"></script>
+    <!-- Use dashboard.js for sidebar/auth logic -->
+    <script src="../assets/js/dashboard.js"></script>
+    <!-- New file for this form's logic -->
+    <script src="../assets/js/log-vitals.js"></script>
+</body>
+</html>
