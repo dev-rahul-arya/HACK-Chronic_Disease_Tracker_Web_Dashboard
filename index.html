@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -30,13 +31,39 @@
                     <li><a href="#contact">Contact</a></li>
                 </ul>
 
-                <div class="nav-auth">
+                <div class="nav-auth" id="nav-auth-buttons">
                     <a href="auth.html" class="btn-text">Login</a>
                     <a href="auth.html" class="btn-primary">Sign Up</a>
+                </div>
+
+                <div class="nav-profile" id="nav-profile-section" style="display: none;">
+                    <button class="profile-btn" id="profile-toggle">
+                        <img src="https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff" alt="Profile"
+                            id="user-avatar">
+                        <span id="user-name-display">My Account</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <div class="profile-dropdown" id="profile-dropdown-menu">
+                        <div class="dropdown-header">
+                            <p class="role-badge" id="user-role-badge">Patient</p> <span class="user-email"
+                                id="user-email-display">user@example.com</span>
+                        </div>
+                        <hr>
+                        <a href="dashboard/index.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                        <a href="dashboard/profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                        <a href="dashboard/settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                        <a href="premium.html" class="premium-link"><i class="fa-solid fa-crown"></i> Go Premium</a>
+                        <hr>
+                        <a href="#" id="logout-btn" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i>
+                            Log Out</a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+
 
     <header class="hero">
         <div class="container hero-content">
@@ -167,6 +194,8 @@
         </div>
     </footer>
 
+    <script src="assets/js/supabase-client.js"></script>
+    <script src="assets/js/nav-auth.js"></script>
     <script>
         const typingText = document.querySelector(".typing-text");
         const words = ["Health Journey", "Daily Vitals", "Medication Log", "Doctor Reports"];
