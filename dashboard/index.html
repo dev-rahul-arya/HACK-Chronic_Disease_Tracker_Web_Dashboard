@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | HealthTrack</title>
+    
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Dashboard Specific Styles -->
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo-text">
+                    <i class="fa-solid fa-heart-pulse"></i> HealthTrack
+                </a>
+                <button id="close-sidebar" class="mobile-only"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item active">
+                    <i class="fa-solid fa-house"></i> <span>Overview</span>
+                </a>
+                <a href="log-vitals.html" class="nav-item">
+                    <i class="fa-solid fa-file-medical"></i> <span>Log Vitals</span>
+                </a>
+                <a href="medications.html" class="nav-item">
+                    <i class="fa-solid fa-pills"></i> <span>Medications</span>
+                </a>
+                <a href="doctor-access.html" class="nav-item">
+                    <i class="fa-solid fa-user-doctor"></i> <span>Doctor Access</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fa-solid fa-gear"></i> <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="nav-item logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Top Header -->
+            <header class="top-bar">
+                <div class="top-left">
+                    <button id="open-sidebar" class="mobile-only"><i class="fa-solid fa-bars"></i></button>
+                    <h2 id="page-title">Dashboard</h2>
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="user-dropdown-container">
+                    <button class="profile-pill" id="dashboard-profile-toggle">
+                        <img src="https://ui-avatars.com/api/?name=User&background=0d6efd&color=fff" alt="User" id="user-avatar">
+                        <span id="user-name-display" class="desktop-only">My Account</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div class="profile-dropdown" id="dashboard-dropdown-menu">
+                        <div class="dropdown-header">
+                            <p class="role-badge">Patient</p>
+                            <span class="user-email" id="user-email">Loading...</span>
+                        </div>
+                        <hr>
+                        <!-- Added My Profile Link -->
+                        <a href="profile.html"><i class="fa-solid fa-user"></i> My Profile</a>
+                        <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+                        <a href="#" class="logout-link" id="header-logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Log Out</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-container">
+                
+                <!-- Welcome Banner -->
+                <div class="welcome-banner">
+                    <div class="welcome-text">
+                        <h3>Welcome back! 👋</h3>
+                        <p>Here is your daily health summary. You have <strong>2 medications</strong> pending today.</p>
+                    </div>
+                    <a href="log-vitals.html" class="btn-primary btn-solid"><i class="fa-solid fa-plus"></i> Log Vitals</a>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-blue"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="stat-info">
+                            <h4>Blood Pressure</h4>
+                            <p class="stat-value">120/80 <span class="unit">mmHg</span></p>
+                            <span class="stat-status success">Normal</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon bg-red"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <div class="stat-info">
+                            <h4>Heart Rate</h4>
+                            <p class="stat-value">72 <span class="unit">bpm</span></p>
+                            <span class="stat-status success">Normal</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon bg-orange"><i class="fa-solid fa-cube"></i></div>
+                        <div class="stat-info">
+                            <h4>Glucose</h4>
+                            <p class="stat-value">95 <span class="unit">mg/dL</span></p>
+                            <span class="stat-status success">Good</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon bg-green"><i class="fa-solid fa-weight-scale"></i></div>
+                        <div class="stat-info">
+                            <h4>Weight</h4>
+                            <p class="stat-value">70.5 <span class="unit">kg</span></p>
+                            <span class="stat-status neutral">-0.5kg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Recent Activity -->
+                <div class="dashboard-split">
+                    <!-- Main Chart -->
+                    <div class="chart-section card">
+                        <div class="card-header">
+                            <h3>Health Trends</h3>
+                            <select id="chart-filter" class="form-select">
+                                <option value="7">Last 7 Days</option>
+                                <option value="30">Last 30 Days</option>
+                            </select>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="healthChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Logs / Quick Actions -->
+                    <div class="recent-section card">
+                        <div class="card-header">
+                            <h3>Upcoming Meds</h3>
+                            <a href="medications.html" class="view-all">View All</a>
+                        </div>
+                        <!-- Updated List Structure -->
+                        <ul class="med-list">
+                            <li class="med-item">
+                                <div class="med-icon">
+                                    <i class="fa-solid fa-pills"></i>
+                                </div>
+                                <div class="med-info">
+                                    <span class="med-name">Metformin</span>
+                                    <span class="med-dose">500mg • After Lunch</span>
+                                </div>
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" class="med-check" title="Mark as taken">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </li>
+                            <li class="med-item">
+                                <div class="med-icon">
+                                    <i class="fa-solid fa-capsules"></i>
+                                </div>
+                                <div class="med-info">
+                                    <span class="med-name">Lisinopril</span>
+                                    <span class="med-dose">10mg • Night</span>
+                                </div>
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" class="med-check" title="Mark as taken">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </li>
+                        </ul>
+                        
+                        <div class="card-header mt-4">
+                            <h3>Alerts</h3>
+                        </div>
+                        <div class="alert-box warning">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>You missed logging your BP yesterday.</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/supabase-client.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>
